@@ -18,8 +18,10 @@ class ProductResource extends Resource
          'name' => $this->name,
          'description' => $this->details,
          'price' => $this->price,
-         'stock' => $this->stock,
+         'stock' => $this->stock == 0 ? 'Out of stock' : $this->stock,
          'discount' => $this->discount,
+         'rating' => $this->reviews->count() ? round($this->reviews->sum('star')/$this->reviews->count(),2) : '0',
+         'href' => route('reviews.index',$this->id)
         ];
     }
 }
